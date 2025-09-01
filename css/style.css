@@ -116,3 +116,28 @@ li{
 @media (orientation:landscape) and (max-height:480px){
   .wheel-stage{ transform:scale(.9); transform-origin:center; }
 }
+:root{
+  --spin-duration: 6.5s;                          /* thời gian quay mượt */
+  --spin-ease: cubic-bezier(.075,.8,.2,1);         /* đường cong chuyển động */
+}
+
+/* Ảnh bánh xe quay mượt khi JS set transform: rotate(...) */
+.wheel-stage > #myImage{
+  transition: transform var(--spin-duration) ease-in-out;
+  will-change: transform;
+}
+
+/* (Nếu code quay vào <ul class="wheel"> thì cũng mượt) */
+ul.wheel{
+  transition: transform var(--spin-duration) var(--spin-ease);
+  will-change: transform;
+}
+
+/* Pointer nhún – luôn giữ translateX(-50%) trong keyframes */
+.pointer{
+  animation: pointerBounce .55s infinite ease-in-out;
+}
+@keyframes pointerBounce{
+  0%,100%{ transform: translate(-50%, -8px); }  /* nhô lên 8px */
+  50%     { transform: translate(-50%, 0); }    /* về vị trí gốc */
+}
