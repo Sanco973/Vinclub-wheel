@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Số Quà Tặng</title>
+    <link rel="stylesheet" href="./css/soquatang.css" />
+  </head>
+  <body>
+    <button onclick="openIndex()" style="padding: 10px 20px; font-size: 16px">
+      Mở trang Quay quà
+    </button>
+    <button onclick="closeIndex()" style="padding: 10px 20px; font-size: 16px">
+      Đóng trang Quay quà
+    </button>
+    <button onclick="Reset()" style="padding: 10px 20px; font-size: 16px">
+      Reset lại số lượng quà
+    </button>
+    <main class="container">
+      <!-- Bảng số lượng quà còn lại -->
+      <section class="left-panel">
+        <h2>Số Lượng Quà Còn Lại</h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Tên Quà</th>
+              <th>Số Lượng</th>
+              <th>Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="giftList"></tbody>
+        </table>
+      </section>
+
+      <!-- Bảng quà đã trúng thưởng -->
+      <section class="right-panel">
+        <h2>Quà Đã Trúng Thưởng</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Số Thứ Tự</th>
+                <th>Thời Gian</th>
+                <th>Quà Trúng</th>
+              </tr>
+            </thead>
+            <button
+              id="clearHistoryBtn"
+              style="
+                margin: 10px 0;
+                background-color: #ff4d4d;
+                color: white;
+                padding: 8px 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+              "
+            >
+              🗑️ Xóa tất cả lịch sử quay
+            </button>
+            <tbody id="spinHistory"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="./js/list-gift.js"></script>
+    <script src="./js/soquatang.js"></script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <script src="list-gift.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <div class="waiting-screen" id="waitingScreen">
+      <video id="promoVideo" autoplay loop>
+        <source src="../Video-Vinclub.mp4" type="video/mp4" />
+        Trình duyệt của bạn không hỗ trợ video.
+      </video>
+    </div>
+    <div class="overlay" id="overlay">
+      Chạm vào màn hình để kích hoạt âm thanh!
+    </div>
+    <main class="main">
+      <span>
+        <ul class="wheel"></ul>
+        <img id="myImage" src="./thietke-01.png" />
+        <button class="btn--wheel"></button>
+      </span>
+    </main>
+    <div id="popupSmall" class="popup-small">
+      <div class="popup-content">
+        <div id="giftimg"></div>
+        <p id="popupGiftMessage"></p>
+        <button onclick="closeSmallPopup()">Đóng</button>
+      </div>
+    </div>
+    <audio id="myAudio">
+      <source src="./mp3/conquay.mp3" />
+    </audio>
+    <audio id="ChucMungAudio">
+      <source src="./mp3/chucmung.mp3" />
+    </audio>
+    <audio id="BuonAudio">
+      <source src="./mp3/buon.mp3" />
+    </audio>
+    <script src="main.js"></script>
+  </body>
+</html>
