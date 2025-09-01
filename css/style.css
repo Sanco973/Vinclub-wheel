@@ -3,7 +3,7 @@
   /* Đường kính bánh tự co giãn theo thiết bị */
   --size-wheel: clamp(360px, 70vmin, 720px);
   /* Tỉ lệ theo ảnh tham chiếu */
-  --btn-ratio: 0.1;   /* nút = 18% đường kính */
+  --btn-ratio: 0.05;   /* nút = 18% đường kính */
   --ptr-ratio: 0.1;   /* pointer = 14% đường kính */
   --ptr-offset: -0.06; /* nhô lên 6% đường kính */
 }
