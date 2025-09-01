@@ -4,7 +4,7 @@
   --size-wheel: clamp(360px, 70vmin, 720px);
 
   /* Tỉ lệ theo thiết kế của bạn */
-  --btn-ratio: 0.05;   /* nút = 5% đường kính bánh */
+  --btn-ratio: 0.15;   /* nút = 5% đường kính bánh */
   --ptr-ratio: 0.10;   /* pointer = 10% đường kính */
   --ptr-offset: -0.06; /* nhô lên khỏi mép bánh 6% đường kính */
 
