@@ -1,11 +1,16 @@
-/* ============ VINCLUB WHEEL – CLEAN CSS ============ */
+/* ============ VINCLUB WHEEL – FINAL CLEAN CSS ============ */
 :root{
-  /* Đường kính bánh tự co giãn theo thiết bị */
+  /* Kích thước bánh – tự co giãn theo thiết bị */
   --size-wheel: clamp(360px, 70vmin, 720px);
-  /* Tỉ lệ theo ảnh tham chiếu */
-  --btn-ratio: 0.05;   /* nút = 18% đường kính */
-  --ptr-ratio: 0.1;   /* pointer = 14% đường kính */
-  --ptr-offset: -0.06; /* nhô lên 6% đường kính */
+
+  /* Tỉ lệ theo thiết kế của bạn */
+  --btn-ratio: 0.05;   /* nút = 5% đường kính bánh */
+  --ptr-ratio: 0.10;   /* pointer = 10% đường kính */
+  --ptr-offset: -0.06; /* nhô lên khỏi mép bánh 6% đường kính */
+
+  /* Hiệu ứng quay */
+  --spin-duration: 5s;
+  --spin-ease: cubic-bezier(.075,.8,.2,1);
 }
 
 /* Reset & layout cơ bản */
@@ -20,7 +25,13 @@ body{
 }
 
 /* Thông báo nhỏ */
-.msg{ min-height:4rem; margin-top:.5rem; color:#fff; text-align:center; text-transform:capitalize; }
+.msg{
+  min-height:4rem;
+  margin-top:.5rem;
+  color:#fff;
+  text-align:center;
+  text-transform:capitalize;
+}
 
 /* Sân khấu bánh xe – khung vuông làm mốc canh giữa */
 .main{ display:grid; place-items:center; width:100%; }
@@ -30,20 +41,29 @@ body{
   height:var(--size-wheel);
 }
 
-/* Bánh và ảnh overlay phủ kín khung vuông */
+/* Bánh & ảnh overlay phủ kín khung vuông */
 .wheel-stage > .wheel,
 .wheel-stage > #myImage{
   position:absolute; inset:0;
   width:100%; height:100%;
 }
 ul.wheel{
-  padding:0; border:1px solid rgb(0,12,184);
-  border-radius:50%; list-style:none; overflow:hidden;
-  transition:cubic-bezier(.075,.8,.2,1) 7s;
+  padding:0;
+  border:1px solid rgb(0,12,184);
+  border-radius:50%;
+  list-style:none;
+  overflow:hidden;
+  transition: transform var(--spin-duration) var(--spin-ease);
+  will-change: transform;
+}
+.wheel-stage > #myImage{
+  transition: transform var(--spin-duration) ease-in-out;
+  will-change: transform;
 }
 li{
   position:absolute; top:0; right:0; width:50%; height:50%;
-  transform-origin:0% 100%; overflow:hidden;
+  transform-origin:0% 100%;
+  overflow:hidden;
 }
 
 /* Nút quay – luôn đúng tâm & đúng tỉ lệ */
@@ -62,9 +82,9 @@ li{
 .btn--wheel:active{ transform:translate(-50%,-50%) scale(.95); }
 .btn--wheel.no-animation{ animation:none; }
 @keyframes zoomBlink{
-  0%{   transform:translate(-50%,-50%) scale(1);   }
-  50%{  transform:translate(-50%,-50%) scale(1.1); }
-  100%{ transform:translate(-50%,-50%) scale(1);   }
+  0%   { transform:translate(-50%,-50%) scale(1);   }
+  50%  { transform:translate(-50%,-50%) scale(1.1); }
+  100% { transform:translate(-50%,-50%) scale(1);   }
 }
 
 /* Pointer độc lập (chỉ dùng nếu KHÔNG vẽ pointer sẵn trong ảnh bánh) */
@@ -74,26 +94,42 @@ li{
   transform:translateX(-50%);
   width:calc(var(--size-wheel)*var(--ptr-ratio));
   height:auto; object-fit:contain; z-index:6;
+
+  /* Nhún theo trục Y nhưng vẫn giữ canh giữa theo X */
+  animation: pointerBounce .55s infinite ease-in-out;
+}
+@keyframes pointerBounce{
+  0%,100%{ transform: translate(-50%, -8px); }  /* nhô lên 8px */
+  50%     { transform: translate(-50%, 0); }    /* về vị trí gốc */
 }
 
 /* Popup kết quả */
 #popupSmall{ display:none; }
 .popup-small{
   position:fixed; top:45%; left:50%; transform:translate(-50%,-45%);
-  background:#fff; padding:20px; width:600px; height:auto;
+  background:#fff; padding:20px; width:min(600px, 90vw); height:auto;
   box-shadow:0 8px 14px rgba(0,0,0,.2); border-radius:10px;
-  z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  z-index:9999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
   border:2px solid rgb(5,23,51);
 }
-.popup-content{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; width:100%; text-align:center; }
+.popup-content{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:15px; width:100%; text-align:center;
+}
 .popup-content p{ font-size:24px; color:rgb(5,23,51); }
 .popup-content button{
-  padding:12px 25px; background:rgb(5,23,51); color:#fff; border:0; border-radius:5px; cursor:pointer;
+  padding:12px 25px; background:rgb(5,23,51); color:#fff;
+  border:0; border-radius:5px; cursor:pointer;
 }
 .popup-content button:hover{ background:rgb(5,23,51); }
-#giftimg{ width:100%; height:250px; background-size:contain; background-repeat:no-repeat; background-position:center; margin-bottom:20px; }
+#giftimg{
+  width:100%; height:250px;
+  background-size:contain; background-repeat:no-repeat; background-position:center;
+  margin-bottom:20px;
+}
 
-/* Màn hình chờ + overlay âm thanh */
+/* Màn hình chờ + overlay kích hoạt âm thanh */
 .waiting-screen{
   position:fixed; inset:0; background:#000;
   display:flex; justify-content:center; align-items:center;
@@ -104,7 +140,8 @@ li{
 
 .overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.7); color:#fff;
-  display:flex; justify-content:center; align-items:center; font-size:20px; text-align:center;
+  display:flex; justify-content:center; align-items:center;
+  font-size:20px; text-align:center;
   z-index:10001; visibility:hidden; opacity:0; transition:opacity .5s ease;
 }
 .overlay.active{ visibility:visible; opacity:1; }
@@ -115,29 +152,4 @@ li{
 }
 @media (orientation:landscape) and (max-height:480px){
   .wheel-stage{ transform:scale(.9); transform-origin:center; }
-}
-:root{
-  --spin-duration: 5s;                          /* thời gian quay mượt */
-  --spin-ease: cubic-bezier(.075,.8,.2,1);         /* đường cong chuyển động */
-}
-
-/* Ảnh bánh xe quay mượt khi JS set transform: rotate(...) */
-.wheel-stage > #myImage{
-  transition: transform var(--spin-duration) ease-in-out;
-  will-change: transform;
-}
-
-/* (Nếu code quay vào <ul class="wheel"> thì cũng mượt) */
-ul.wheel{
-  transition: transform var(--spin-duration) var(--spin-ease);
-  will-change: transform;
-}
-
-/* Pointer nhún – luôn giữ translateX(-50%) trong keyframes */
-.pointer{
-  animation: pointerBounce .55s infinite ease-in-out;
-}
-@keyframes pointerBounce{
-  0%,100%{ transform: translate(-50%, -8px); }  /* nhô lên 8px */
-  50%     { transform: translate(-50%, 0); }    /* về vị trí gốc */
 }
